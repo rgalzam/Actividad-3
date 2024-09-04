@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -36,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
         //onTouch
         Button button_touch = findViewById(R.id.button_touch);
+
+        ImageView imageView = findViewById(R.id.imageView);
+        Button zoomInButton = findViewById(R.id.btnZoomIn);
+        Button zoomOutButton = findViewById(R.id.btnZoomOut);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -88,6 +93,22 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
                 return false;
+            }
+        });
+
+        zoomInButton.setOnClickListener(v -> {
+            float x = imageView.getScaleX();
+            float y = imageView.getScaleY();
+            imageView.setScaleX(x + 1);
+            imageView.setScaleY(y + 1);
+        });
+
+        zoomOutButton.setOnClickListener(v -> {
+            float x = imageView.getScaleX();
+            float y = imageView.getScaleY();
+            if (x > 1 && y > 1) {
+                imageView.setScaleX(x - 1);
+                imageView.setScaleY(y - 1);
             }
         });
     }
